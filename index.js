@@ -33,6 +33,10 @@ function verifyJWT(req, res, next) {
 app.get("/", (req, res) => {
   res.send("Running Car Repair");
 });
+app.get("/heroku", (req, res) => {
+  res.send("Hero Meets heroku");
+});
+
 
 //connect MONGODB
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.5hqwk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;

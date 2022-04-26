@@ -19,11 +19,12 @@ function verifyJWT(req, res, next) {
     return res.status(401).send({ message: "Unauthorized Access" });
   }
   const token = authHeader.split(" ")[1];
+  // console.log(token);
   jwt.verify(token, process.env.ACCESS_KEY_ID, (err, decoded) => {
     if (err) {
       res.status(403).send({ message: "Forbidded access" });
     }
-    console.log("decoded", decoded);
+    // console.log("decoded", decoded);
     req.decoded = decoded;
     next();
   });

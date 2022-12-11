@@ -39,7 +39,7 @@ app.get("/heroku", (req, res) => {
 
 
 //connect MONGODB
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.5hqwk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const uri = `mongodb://carService:jLWi0tm4azhAuua7@cluster0-shard-00-00.5hqwk.mongodb.net:27017,cluster0-shard-00-01.5hqwk.mongodb.net:27017,cluster0-shard-00-02.5hqwk.mongodb.net:27017/?ssl=true&replicaSet=atlas-up4ydt-shard-0&authSource=admin&retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -51,7 +51,7 @@ async function run() {
     await client.connect();
     const serviceCollection = client.db("carRepair").collection("service");
     const orderCollection = client.db("carRepair").collection("order");
-
+console.log("db")
     app.get("/service", async (req, res) => {
       const query = {};
       const cursor = serviceCollection.find(query);

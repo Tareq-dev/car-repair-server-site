@@ -24,7 +24,6 @@ function verifyJWT(req, res, next) {
     if (err) {
       res.status(403).send({ message: "Forbidded access" });
     }
-    // console.log("decoded", decoded);
     req.decoded = decoded;
     next();
   });
@@ -51,7 +50,6 @@ async function run() {
     await client.connect();
     const serviceCollection = client.db("carRepair").collection("service");
     const orderCollection = client.db("carRepair").collection("order");
-console.log("db")
     app.get("/service", async (req, res) => {
       const query = {};
       const cursor = serviceCollection.find(query);
@@ -83,10 +81,9 @@ console.log("db")
     });
 
     //order collection
-    app.get("/order", verifyJWT, async (req, res) => {
-      const decodedEmail = req.decoded.email;
+    app.get("/order", async (req, res) => {
       const email = req.query.email;
-      if (email === decodedEmail) {
+      if (email) {
         const query = { email: email };
         const cursor = orderCollection.find(query);
         const orders = await cursor.toArray();
